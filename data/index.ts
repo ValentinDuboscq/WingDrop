@@ -1,22 +1,7 @@
 import ordersData from "./orders.json";
 import itemsData from "./items.json";
-
-type Item = {
-  id: string;
-  name: string;
-  weight: string;
-};
-
-type OrderItem = {
-  item_id: string;
-  quantity: number;
-};
-
-type Order = {
-  id: string;
-  date: string;
-  items: OrderItem[];
-};
+import type { Item } from "../types/item.ts";
+import type { Order } from "../types/order.ts";
 
 export const orders = ordersData as Order[];
 export const items = itemsData as Item[];

@@ -1,7 +1,8 @@
 import express from "express";
-import { orders, items } from "./data";
 import sequelize from "./sequelize.ts";
 import populateDatabase from "./utils/populateDb.ts";
+import createParcels from "./utils/createParcels.ts";
+import calculateFees from "./utils/calculateFees.ts";
 
 require("./models/relations.ts");
 
@@ -14,7 +15,14 @@ sequelize.sync({ force: true }).then(() => {
 });
 
 app.get("/", async (req, res) => {
-  res.send({ items, orders });
+  let totalFees = 0;
+  const parcels = await createParcels();
+
+  parcels.forEach((parcel) => {
+    totalFees += calculateFees(parcel.weight);
+  });
+
+  res.send({ parcels, totalFees });
 });
 
 app.listen(port, () => {

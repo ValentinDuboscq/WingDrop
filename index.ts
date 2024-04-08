@@ -1,11 +1,19 @@
 import express from "express";
-import items from "./data/items.json";
-import orders from "./data/orders.json";
+import { orders, items } from "./data";
+import sequelize from "./sequelize.ts";
+import populateDatabase from "./utils/populateDb.ts";
+
+require("./models/relations.ts");
 
 const app = express();
 const port = 8080;
 
-app.get("/", (req, res) => {
+// force: true will delete tables at start
+sequelize.sync({ force: true }).then(() => {
+  populateDatabase();
+});
+
+app.get("/", async (req, res) => {
   res.send({ items, orders });
 });
 

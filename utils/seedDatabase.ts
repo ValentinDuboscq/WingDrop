@@ -46,7 +46,7 @@ const populateOrders = async () => {
   }
 };
 
-const populateDatabase = async () => {
+const seedDatabase = async () => {
   try {
     await populateItems();
     await populateOrders();
@@ -56,4 +56,4 @@ const populateDatabase = async () => {
   }
 };
 
-export default populateDatabase;
+export default seedDatabase;

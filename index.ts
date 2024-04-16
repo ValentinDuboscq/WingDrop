@@ -1,6 +1,6 @@
 import express from "express";
 import sequelize from "./sequelize.ts";
-import populateDatabase from "./utils/populateDb.ts";
+import seedDatabase from "./utils/seedDatabase.ts";
 import createParcels from "./utils/createParcels.ts";
 import calculateFees from "./utils/calculateFees.ts";
 
@@ -11,7 +11,7 @@ const port = 8080;
 
 // force: true will delete tables at start
 sequelize.sync({ force: true }).then(() => {
-  populateDatabase();
+  seedDatabase();
 });
 
 app.get("/", async (req, res) => {
